@@ -1,6 +1,5 @@
-lass BookSerializer
+class CategorySerializer
   include FastJsonapi::ObjectSerializer
-
-  attributes :title, :image_url, :likes, :remarks, :category_id
-  
+  attributes :name
+  has_many :books
 end
