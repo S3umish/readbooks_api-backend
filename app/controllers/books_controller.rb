@@ -1,12 +1,12 @@
 class BooksController < ApplicationController
     def index 
         books = Book.all 
-        render json: BookSerializer.new(books)   
+        render json: BookSerializer.new(books, {include: [:category]})  
     end
 
     def show 
         book = Book.find(params[:id])
-        render json: book.to_json(except: [:created_at, :updated_at], include: {category: {only: [:name]}})
+        render json: BookSerializer.new(book)
     end
 
     def create 
@@ -21,7 +21,7 @@ class BooksController < ApplicationController
     def destroy 
         book = Book.find(params[:id])
         book.destroy 
-        render json: {message: "successfully deleted #{book.name}"}
+        render json: {message: "Successfully deleted #{book.title}!"}
     end
 
     def update 
@@ -33,9 +33,11 @@ class BooksController < ApplicationController
         end
     end
 
+
     private 
 
     def book_params
-        params.require(:book).permit(:title, :image_url, :likes, :remarks, :category_id)
+        params.require(:book).permit(:title, :image_url, :remarks, :category_id)
     end
 end
+

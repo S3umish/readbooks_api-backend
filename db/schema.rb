@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 2021_04_16_222724) do
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.string "image_url"
-    t.integer "likes"
     t.string "remarks"
     t.integer "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
